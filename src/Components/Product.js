@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Product.css";
+import { BasketContext } from "../Context/BasketContext";
 
-const Product = ({ id, title, image, price, rating }) => {
+const Product = ({
+  id = Math.floor(Math.random() * 100),
+  title,
+  image,
+  price,
+  rating,
+}) => {
+  const basketContext = useContext(BasketContext);
+  const addBasketHandler = () => {
+    const item = {
+      id: id,
+      title: title,
+      image: image,
+      price: price,
+      rating: rating,
+    };
+    basketContext.addToBasket(item);
+    basketContext.basketSizeHandler();
+  };
   return (
     <div className="product">
       <div className="product-info">
@@ -19,7 +38,7 @@ const Product = ({ id, title, image, price, rating }) => {
         </div>
       </div>
       <img src={image} alt="" />
-      <button>Add to Basket</button>
+      <button onClick={addBasketHandler}>Add to Basket</button>
     </div>
   );
 };
