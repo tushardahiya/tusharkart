@@ -6,17 +6,23 @@ export const BasketContext = React.createContext({
   basketSize: 0,
   addToBasket: () => {},
   basketSizeHandler: () => {},
+  userHandler: () => {},
 });
 
 const BasketProvider = (props) => {
   const [basket, setBasket] = useState([]);
   const [basketSize, setBasketSize] = useState(0);
+  const [user, setUser] = useState({});
 
   const addToBasketHandler = (item) => {
     setBasket([...basket, item]);
   };
   const basketSizeHandler = () => {
     setBasketSize((prevState) => prevState + 1);
+  };
+
+  const userHandler = (authUser) => {
+    setUser(authUser);
   };
 
   return (
@@ -26,6 +32,8 @@ const BasketProvider = (props) => {
         addToBasket: addToBasketHandler,
         basketSize: basketSize,
         basketSizeHandler: basketSizeHandler,
+        user: user,
+        userHandler: userHandler,
       }}
     >
       {props.children}
