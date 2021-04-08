@@ -11,7 +11,7 @@ const SubTotal = () => {
       0
     );
     setBasketTotal(totalPrice);
-  }, [BasketContext]);
+  }, [basketContext]);
 
   return (
     <div className="subtotal">
