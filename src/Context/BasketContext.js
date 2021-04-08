@@ -37,6 +37,7 @@ const BasketProvider = (props) => {
       );
     }
     setBasket(newBasket);
+    setBasketSize((prevState) => prevState - 1);
   };
 
   return (
