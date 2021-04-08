@@ -1,14 +1,9 @@
 import React, { useContext } from "react";
 import "./Product.css";
 import { BasketContext } from "../Context/BasketContext";
+import { v4 as uuidv4 } from "uuid";
 
-const Product = ({
-  id = Math.floor(Math.random() * 100),
-  title,
-  image,
-  price,
-  rating,
-}) => {
+const Product = ({ id, title, image, price, rating }) => {
   const basketContext = useContext(BasketContext);
   const addBasketHandler = () => {
     const item = {
@@ -33,7 +28,7 @@ const Product = ({
           {Array(rating)
             .fill()
             .map((_, i) => (
-              <p>🌟</p>
+              <p id={uuidv4()}>🌟</p>
             ))}
         </div>
       </div>

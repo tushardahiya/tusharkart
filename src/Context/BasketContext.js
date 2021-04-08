@@ -7,6 +7,7 @@ export const BasketContext = React.createContext({
   addToBasket: () => {},
   basketSizeHandler: () => {},
   userHandler: () => {},
+  removeFromBasketHandler: () => {},
 });
 
 const BasketProvider = (props) => {
@@ -25,6 +26,19 @@ const BasketProvider = (props) => {
     setUser(authUser);
   };
 
+  const removeFromBasketHandler = (id) => {
+    const index = basket.findIndex((basketItem) => basketItem.id === id);
+    let newBasket = [...basket];
+    if (index >= 0) {
+      newBasket.splice(index, 1);
+    } else {
+      console.warn(
+        `Cannot remove product ( id:${id}) as its not in the basket!`
+      );
+    }
+    setBasket(newBasket);
+  };
+
   return (
     <BasketContext.Provider
       value={{
@@ -34,6 +48,7 @@ const BasketProvider = (props) => {
         basketSizeHandler: basketSizeHandler,
         user: user,
         userHandler: userHandler,
+        removeFromBasketHandler: removeFromBasketHandler,
       }}
     >
       {props.children}
