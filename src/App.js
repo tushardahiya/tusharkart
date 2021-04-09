@@ -7,6 +7,8 @@ import Login from "./Components/Login";
 import { auth } from "./firebase";
 import { BasketContext } from "./Context/BasketContext";
 import Checkout from "./Components/Checkout/Checkout";
+import AdminLogin from "./Components/Admin/AdminLogin";
+import AdminDashboard from "./Components/Admin/AdminDashboard";
 
 function App() {
   const basketContext = useContext(BasketContext);
@@ -27,6 +29,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
+          <Route path="/admindashboard">
+            <AdminDashboard />
+          </Route>
+          <Route path="/adminlogin">
+            <AdminLogin />
+          </Route>
           <Route path="/checkout">
             <Checkout />
           </Route>

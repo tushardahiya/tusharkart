@@ -28,6 +28,11 @@ const Login = () => {
       .catch((err) => alert(err.message));
   };
 
+  const adminLoginHandler = (event) => {
+    event.preventDefault();
+    History.push("/adminlogin");
+  };
+
   return (
     <div className="login">
       <Link to="/">
@@ -68,6 +73,9 @@ const Login = () => {
         </p>
         <button onClick={registerHandler} className="login-registerButton">
           Create a new Amazon Account
+        </button>
+        <button onClick={adminLoginHandler} className="login-adminButton">
+          Login in to your seller account
         </button>
       </div>
     </div>
