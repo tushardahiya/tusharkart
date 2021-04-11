@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase";
 import "./Home.css";
 import Product from "./Product";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetchedProducts = [];
+    db.collection("products")
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          fetchedProducts.push(doc.data());
+        });
+        setProducts(fetchedProducts);
+        console.log(products);
+      });
+  }, []);
+
   return (
     <div className="home">
       <div className="home-container">
@@ -12,20 +27,17 @@ const Home = () => {
           alt=""
         />
         <div className="home-row">
-          <Product
-            id="12321341"
-            title="The Lean Startup: How Constant Innovation Creates Radically Successful Businesses Paperback"
-            price={100}
-            rating={5}
-            image="https://images-na.ssl-images-amazon.com/images/I/51Zymoq7UnL._SX325_BO1,204,203,200_.jpg"
-          />
-          <Product
-            id="49538094"
-            title="Kenwood kMix Stand Mixer for Baking, Stylish Kitchen Mixer with K-beater, Dough Hook and Whisk, 5 Litre Glass Bowl"
-            price={2500}
-            rating={4}
-            image="https://images-na.ssl-images-amazon.com/images/I/81O%2BGNdkzKL._AC_SX450_.jpg"
-          />
+          {products.map((product) => {
+            return (
+              <Product
+                id={product.id}
+                title={product.title}
+                price={+product.price}
+                rating={product.rating}
+                image={product.image}
+              />
+            );
+          })}
         </div>
 
         <div className="home-row">
