@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { db } from "../../firebase";
 import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [rating, setRating] = useState("");
+  const [price, setPrice] = useState(null);
+  const [rating, setRating] = useState(null);
   const [image, setImage] = useState("");
-  const [product, setProduct] = useState({});
 
   const addProductHandler = (e) => {
     e.preventDefault();
-    setProduct({
+    db.collection("products").add({
       id: id,
       title: title,
-      price: price,
-      rating: rating,
+      price: +price,
+      rating: +rating,
       image: image,
-      product: product,
     });
+    setId("");
+    setTitle("");
+    setPrice(null);
+    setRating(null);
+    setImage("");
   };
 
   return (
@@ -48,13 +52,13 @@ const AdminDashboard = () => {
           />
           <h5>price</h5>
           <input
-            type="text"
+            type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
           <h5>rating</h5>
           <input
-            type="text"
+            type="number"
             value={rating}
             onChange={(e) => setRating(e.target.value)}
           />
